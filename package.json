@@ -1,6 +1,6 @@
 {
-  "name": "kkl",
-  "version": "1.0.0",
+  "name": "{{projectName}}",
+  "version": "{{projectVersion}}",
   "description": "{{projectDescription}}",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,10 @@
   "license": "ISC",
   "devDependencies": {
     "commander": "^2.15.1",
-    "glob": "^7.1.2"
+    "glob": "^7.1.2",
+    "handlebars": "^4.0.11",
+    "inquirer": "^5.2.0",
+    "metalsmith": "^2.3.0"
   },
   "dependencies": {
     "download-git-repo": "^1.0.2"

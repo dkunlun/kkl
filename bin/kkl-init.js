@@ -6,6 +6,7 @@ const fs = require('fs')
 const glob = require('glob')
 const download = require('../lib/download')
 const inquirer = require('inquirer')
+const generator = require('../lib/generator')
 
 program.usage('<project-name>').parse(process.argv)
 
@@ -76,9 +77,14 @@ function go () {
             ...answers
           }
         }
+      }).then(context => {
+        // 添加生成的逻辑
+        return generator(context)
+      }).then(context => {
+        console.log('创建成功:)')
       }).catch(err => {
-        return Promise.reject(err)
-      })
+        console.error(`创建失败：${err.message}`)
+      }) 
     })
   })
 }
