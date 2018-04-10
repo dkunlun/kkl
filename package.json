@@ -1,6 +1,6 @@
 {
-  "name": "{{projectName}}",
-  "version": "{{projectVersion}}",
+  "name": "kkl",
+  "version": "1.0.0",
   "description": "{{projectDescription}}",
   "main": "index.js",
   "scripts": {
