@@ -51,8 +51,8 @@ function go () {
     }
     return download(projectRoot).then(target => {
       return {
-        projectRoot,
-        root: projectRoot,
+        name: projectRoot,
+        src: projectRoot,
         downloadTemp: target
       }
     }).then(context => {
@@ -77,10 +77,11 @@ function go () {
             ...answers
           }
         }
-      }).then(context => {
+      }).then(context2 => {
+        console.log(context2)
         // 添加生成的逻辑
-        return generator(context)
-      }).then(context => {
+        return generator(context2)
+      }).then(context2 => {
         console.log('创建成功:)')
       }).catch(err => {
         console.error(`创建失败：${err.message}`)

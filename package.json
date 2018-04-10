@@ -16,7 +16,8 @@
     "glob": "^7.1.2",
     "handlebars": "^4.0.11",
     "inquirer": "^5.2.0",
-    "metalsmith": "^2.3.0"
+    "metalsmith": "^2.3.0",
+    "ora": "^2.0.0"
   },
   "dependencies": {
     "download-git-repo": "^1.0.2"
