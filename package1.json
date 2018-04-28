@@ -1,27 +1,16 @@
 {
-  "name": "kkl",
-  "version": "1.0.0",
-  "description": "",
+  "name": "{{projectName}}",
+  "version": "{{projectVersion}}",
+  "description": "{{projectDescription}}",
   "main": "index.js",
-  "bin": {
-    "kkl": "kkl-haha.js"
-  },
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dkunlun/kkl.git"
+  "bin": {
+    "kkl": "./bin/kkl.js"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dkunlun/kkl/issues"
-  },
-  "homepage": "https://github.com/dkunlun/kkl#readme",
   "devDependencies": {
     "commander": "^2.15.1",
     "glob": "^7.1.2",
