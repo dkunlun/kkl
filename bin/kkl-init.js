@@ -7,6 +7,8 @@ const glob = require('glob')
 const download = require('../lib/download')
 const inquirer = require('inquirer')
 const generator = require('../lib/generator')
+const { writeFile } = require('../lib/utils')
+const rm = require('rimraf').sync
 
 program.usage('<project-name>').parse(process.argv)
 
@@ -82,6 +84,12 @@ function go () {
         // 添加生成的逻辑
         return generator(context2)
       }).then(context2 => {
+        let fromPath = path.join(process.cwd(), projectRoot, 'download-temp')
+        let toPath = path.join(process.cwd(), projectRoot)
+        writeFile(fromPath, toPath)
+        rm(fromPath)
+        rm(path.join(toPath, 'package.json'))
+        fs.renameSync(path.join(toPath, 'packageTemp.json'), path.join(toPath, 'package.json'))
         console.log('创建成功:)')
       }).catch(err => {
         console.error(`创建失败：${err.message}`)
