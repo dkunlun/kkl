@@ -25,10 +25,23 @@ let rootName = path.basename(process.cwd())
 let next = null
 if(list.length) {
   if(fs.existsSync(projectName)) {
-    console.log(`项目${projectName}已经存在`)
-    return
+    // console.log(`项目${projectName}已经存在`)
+    next = inquirer.prompt([
+      {
+        name: 'currentExists',
+        message: `项目${projectName}已经存在，是否删除重新创建目录？`,
+        type: 'confirm',
+        default: true
+      }
+    ]).then(answer => {
+      if (answer.currentExists) {
+        rm(path.join(process.cwd(), projectName))
+      }
+      return Promise.resolve(projectName)
+    })
+  } else {
+    next = Promise.resolve(projectName)
   }
-  next = Promise.resolve(projectName)
 } else if (rootName === projectName) {
   next = inquirer.prompt([
     {
@@ -42,6 +55,15 @@ if(list.length) {
   })
 } else {
   next = Promise.resolve(projectName)
+}
+
+let copyFromTemp = () => {
+  let fromPath = path.join(process.cwd(), projectName, 'download-temp')
+  let toPath = path.join(process.cwd(), projectName)
+  writeFile(fromPath, toPath)
+  rm(fromPath)
+  rm(path.join(toPath, 'package.json'))
+  fs.renameSync(path.join(toPath, 'packageTemp.json'), path.join(toPath, 'package.json'))
 }
 
 next && go()
@@ -84,12 +106,7 @@ function go () {
         // 添加生成的逻辑
         return generator(context2)
       }).then(context2 => {
-        let fromPath = path.join(process.cwd(), projectRoot, 'download-temp')
-        let toPath = path.join(process.cwd(), projectRoot)
-        writeFile(fromPath, toPath)
-        rm(fromPath)
-        rm(path.join(toPath, 'package.json'))
-        fs.renameSync(path.join(toPath, 'packageTemp.json'), path.join(toPath, 'package.json'))
+        copyFromTemp()
         console.log('创建成功:)')
       }).catch(err => {
         console.error(`创建失败：${err.message}`)
